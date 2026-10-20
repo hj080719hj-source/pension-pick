@@ -1,0 +1,10 @@
+node_modules/
+build/
+site/
+release/
+*.ait
+*.log
+.env*
+data/official-history.json
+data/history.previous.json
+data/*.tmp

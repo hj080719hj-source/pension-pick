@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>오늘의 연금번호</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.mjs"></script>
+</head>
+<body>
+  <div class="app">
+    <header><a href="/" class="brand"><span class="brand-icon">7</span>오늘의 연금번호</a><span class="preview">미리보기</span></header>
+    <main>
+      <section id="pick-panel">
+        <div class="intro"><span class="eyebrow">연금복권 720+ 번호 추천</span><h1>이번 주 번호,<br>가볍게 골라볼까요?</h1><p>나만의 숫자를 담아 만드는 작은 설렘</p></div>
+        <section class="ticket" aria-label="추천 번호">
+          <div class="ticket-top"><span><i></i> MY LUCKY NUMBERS</span><span id="ticket-label">아직 뽑기 전이에요</span></div>
+          <div id="result" aria-live="polite"><div class="empty-number"><span>?<small>조</small></span><b>?</b><b>?</b><b>?</b><b>?</b><b>?</b><b>?</b></div></div>
+          <div class="ticket-divider"></div>
+          <div class="ticket-bottom"><span id="result-hint">아래 버튼을 눌러 첫 번호를 만나보세요</span><button id="save" class="text-button" disabled>♡ 보관</button></div>
+        </section>
+        <div class="options">
+          <div class="group-line"><label for="recommendation">추천 방식</label><select id="recommendation"><option value="random">완전 랜덤</option><option value="model">AI 통계 학습</option></select></div>
+          <p id="model-help" class="help" hidden>실제 당첨 이력의 자리별 빈도를 학습해 번호를 골라요. 드물게 나온 숫자도 후보에 포함하며, 당첨 예측 모델은 아니에요.</p>
+          <div class="option-title"><h2>어떻게 뽑을까요?</h2><span>내 취향대로</span></div>
+          <div class="mode" role="group" aria-label="추천 방식"><button class="selected" data-mode="single" aria-pressed="true">한 조 뽑기</button><button data-mode="bundle" aria-pressed="false">1~5조 같은 번호</button></div>
+          <div class="group-line"><label for="group">조 선택</label><select id="group"><option value="random">랜덤으로</option><option value="1">1조</option><option value="2">2조</option><option value="3">3조</option><option value="4">4조</option><option value="5">5조</option></select></div>
+          <details><summary>넣고 싶은 숫자가 있나요?<span>선택</span></summary><p class="help">고정할 자리만 입력해 주세요. 빈칸은 랜덤으로 채워요.</p><div class="fixed-digits" id="fixed"></div><button id="reset" class="text-button">고정 숫자 초기화</button></details>
+        </div>
+        <button id="generate" class="primary"><span>✦</span> 번호 10개 뽑기</button>
+        <p id="quota-status" class="fine" aria-live="polite">하루 첫 1회 무료 · 이후 광고 1회당 추천 1회<br>한국시간 자정에 무료 횟수가 초기화돼요.</p>
+        <section id="model-result" class="stats-card model-result" hidden aria-live="polite"><h2>이 번호를 고른 기준</h2><p id="model-training" class="help"></p><div id="model-reasons"></div><p class="help">선택 비중은 모델이 번호를 뽑는 비중이며 당첨 확률이 아니에요. 각 자리는 독립적으로 학습해요.</p></section>
+        <p id="exclusion-status" class="fine" aria-live="polite">수록된 이전 1등과 동일한 조 + 여섯 자리는 추천에서 제외해요.</p>
+        <p class="fine">이전 당첨번호 제외와 번호 추천은 당첨 확률을 높이지 않아요.</p>
+        <aside class="guide"><div class="guide-icon">?</div><div><strong>연금복권은 조 + 숫자 6자리예요</strong><p>같은 숫자도 조에 따라 다른 번호가 돼요.</p></div></aside>
+      </section>
+      <section id="saved-panel" hidden>
+        <div class="intro"><span class="eyebrow">MY COLLECTION</span><h1>마음에 든 번호를<br>모아두었어요</h1><p>이 브라우저에 저장된 나만의 번호</p></div>
+        <div class="saved-heading"><h2>보관한 번호 <span id="count">0</span></h2><button id="copy" class="text-button" disabled>전체 복사</button></div>
+        <div id="saved-list"></div>
+        <p class="fine">브라우저 데이터를 지우면 보관한 번호도 삭제돼요.<br>번호 보관은 실제 복권 구매가 아니에요.</p>
+      </section>
+      <section id="stats-panel" hidden>
+        <div class="intro"><span class="eyebrow">NUMBER STATISTICS</span><h1>어떤 숫자가<br>얼마나 나왔을까요?</h1><p>실제 1등 당첨번호로 보는 자리별 통계</p></div>
+        <div class="source-note"><strong>동행복권 공식 당첨 이력</strong><p id="stats-source">당첨 이력을 불러오는 중이에요.</p><a href="https://www.dhlottery.co.kr/pt720/result" target="_blank" rel="noopener noreferrer">공식 출처 확인 ↗</a></div>
+        <div id="stats-controls" hidden>
+          <div class="group-line"><label for="stats-period">집계 기간</label><select id="stats-period"><option value="0">전체 회차</option><option value="100">최근 100회</option><option value="50">최근 50회</option><option value="10">최근 10회</option></select></div>
+          <p id="stats-range" class="help"></p>
+          <div id="position-tabs" class="position-tabs" role="group" aria-label="통계 자리 선택"></div>
+          <section class="stats-card" aria-live="polite"><div class="option-title"><h2 id="position-title"></h2><span>횟수 · 비율</span></div><p id="stats-summary" class="help"></p><div id="digit-chart"></div></section>
+          <section class="stats-card"><h2>여섯 자리 한눈에 보기</h2><p class="help">각 숫자의 출현 횟수예요. 색이 진할수록 많이 나왔어요.</p><div id="stats-matrix"></div></section>
+          <section class="stats-card"><h2>조별 출현 횟수</h2><div id="group-chart"></div></section>
+          <details class="stats-card"><summary>집계에 사용한 당첨번호<span>보기</span></summary><div id="history-list" class="history-list"></div></details>
+          <p class="fine">회차마다 1등 번호를 한 번씩 집계해요. 보너스는 제외해요.<br>비율 = 해당 숫자 출현 횟수 ÷ 집계 회차 수<br>과거 출현 빈도가 다음 추첨의 당첨 확률을 높이지 않아요.</p>
+        </div>
+        <button id="stats-retry" class="primary" hidden>다시 불러오기</button>
+      </section>
+      <section id="info-panel" hidden>
+        <div class="intro"><span class="eyebrow">HOW IT WORKS</span><h1>가볍게 뽑고,<br>편하게 보관하세요</h1></div>
+        <div class="info-card"><h2>01. 조와 여섯 자리</h2><p>1~5조 중 한 조와 000000~999999 사이의 여섯 자리 숫자를 무작위로 만들어요. 같은 숫자가 반복될 수도 있어요.</p></div>
+        <div class="info-card"><h2>02. 내 숫자 넣기</h2><p>좋아하는 숫자를 원하는 자리에 고정할 수 있어요. ‘1~5조 같은 번호’를 선택하면 같은 여섯 자리 숫자로 다섯 조를 만들어요.</p></div>
+        <div class="info-card"><h2>03. 추천은 재미로</h2><p>모든 번호 조합의 추첨 확률은 같아요. 추천이나 숫자 고정은 당첨 확률을 높이지 않으며, 생성한 번호의 실제 구매 가능 여부는 확인하지 않아요.</p></div>
+        <div class="info-card"><h2>시제품 안내</h2><p>현재는 번호 추천과 기기 내 보관을 체험하는 버전이에요. 당첨 결과 조회, 토스 계정 연결, 광고 기능은 아직 연결되지 않았어요.</p><a href="https://www.dhlottery.co.kr/pt720/result" target="_blank" rel="noopener noreferrer">동행복권 공식 당첨 결과 보기 ↗</a></div>
+      </section>
+    </main>
+    <nav aria-label="메인 메뉴"><button data-tab="pick" class="active" aria-current="page"><span>✦</span>번호 뽑기</button><button data-tab="saved"><span>♡</span>내 번호함</button><button data-tab="stats"><span>▥</span>통계</button><button data-tab="info"><span>ⓘ</span>이용 안내</button></nav>
+  </div>
+  <div id="toast" role="status"></div>
+</body>
+</html>
