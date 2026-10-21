@@ -2,7 +2,7 @@
   "source": "동행복권",
   "sourceUrl": "https://www.dhlottery.co.kr/pt720/result",
   "endpoint": "https://www.dhlottery.co.kr/pt720/selectPstPt720WnList.do",
-  "fetchedAt": "2026-10-21T18:55:48.404Z",
+  "fetchedAt": "2026-10-21T22:19:40.360Z",
   "scope": "연금복권720+ 회차별 1등 번호 (보너스 제외)",
   "draws": [
     {
