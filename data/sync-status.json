@@ -1,8 +1,7 @@
 {
-  "ok": false,
-  "lastAttemptAt": "2026-10-29T07:03:20.391Z",
-  "lastSuccessAt": "2026-10-29T00:54:19.032Z",
-  "latestRound": 338,
-  "latestDrawDate": "2026-10-22",
-  "error": "fetch failed"
+  "ok": true,
+  "lastAttemptAt": "2026-10-29T14:16:00.333Z",
+  "lastSuccessAt": "2026-10-29T14:16:00.333Z",
+  "latestRound": 339,
+  "latestDrawDate": "2026-10-29"
 }

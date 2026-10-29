@@ -2,9 +2,15 @@
   "source": "동행복권",
   "sourceUrl": "https://www.dhlottery.co.kr/pt720/result",
   "endpoint": "https://www.dhlottery.co.kr/pt720/selectPstPt720WnList.do",
-  "fetchedAt": "2026-10-29T00:54:19.032Z",
+  "fetchedAt": "2026-10-29T14:16:00.333Z",
   "scope": "연금복권720+ 회차별 1등 번호 (보너스 제외)",
   "draws": [
+    {
+      "round": 339,
+      "group": 3,
+      "number": "136515",
+      "date": "2026-10-29"
+    },
     {
       "round": 338,
       "group": 1,
